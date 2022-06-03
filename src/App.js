@@ -61,7 +61,6 @@ useEffect(() => {
           <Navbar.Brand href="#home">CooCoo</Navbar.Brand>
           <Navbar.Toggle />
           <Navbar.Collapse className="justify-content-end">
-            <p>Welcome {auth.currentUser.email}</p>
             {
               isUser ? (
                 <Button variant="outline-light" onClick={handleSignOut}>Sign Out</Button>
