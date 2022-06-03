@@ -3,6 +3,9 @@ import { auth, db } from "./firebase.js";
 import { set, ref, onValue } from "firebase/database";
 import { uid } from "uid";
 import CalendarHeatmap from 'react-calendar-heatmap';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
 
 
 function Home() {
@@ -12,6 +15,10 @@ const [count, setCount] = useState("");
 const [date, setDate] = useState("");
 const [isUser, setIsUser] = useState(false);
 const [isMobile, setIsMobile] = useState(true);
+const [open, setOpen] = useState(false);
+
+const handleClose = () => setOpen(false);
+const handleShow = () => setOpen(true);
 
 useEffect(() => {
     auth.onAuthStateChanged(user => {
@@ -44,6 +51,7 @@ useEffect(() => {
         });
         setCount("");
         setDate("");
+        setOpen(false);
     }
 
     const checkMobile = () => {
@@ -68,14 +76,41 @@ useEffect(() => {
         {
             isUser ? (
         <div>
-            <input type="date" value={date} onChange={(e) => setDate(e.target.value)} />
+            <Button variant="primary" onClick={handleShow}>
+                Add New
+            </Button>
+
+            <Modal show={open} onHide={handleClose}>
+                <Modal.Header closeButton>
+                <Modal.Title>Modal heading</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                <Form.Group className="mb-3">
+                    <Form.Control placeholder="Date" type="date" value={date} onChange={(e) => setDate(e.target.value)} />
+                </Form.Group>
+
+                <Form.Group className="mb-3">
+                    <Form.Select value={count} onChange={(e) => setCount(e.target.value)}>
+                        <option value="">Select</option>
+                        <option value="1">Morning</option>
+                        <option value="2">Night</option>
+                        <option value="3">Both</option>
+                    </Form.Select>
+                </Form.Group>
+                </Modal.Body>
+                <Modal.Footer>
+                <Button variant="primary" onClick={write}>Submit</Button>
+                </Modal.Footer>
+            </Modal>
+
+            {/* <input type="date" value={date} onChange={(e) => setDate(e.target.value)} />
             <select value={count} onChange={(e) => setCount(e.target.value)}>
                 <option value="">Select</option>
                 <option value="1">Morning</option>
                 <option value="2">Night</option>
                 <option value="3">Both</option>
             </select>
-            <button onClick={write}>Write</button>
+            <button onClick={write}>Write</button> */}
         </div>
         ) : (
         <div>
