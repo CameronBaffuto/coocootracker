@@ -9,6 +9,7 @@
   width: 80vw;
   border: 2px solid black; 
   margin-top: 5%;
+  margin-bottom: 25%;
   margin-left: auto;
   margin-right: auto;
   padding: 1%;
@@ -98,5 +99,5 @@
   fill: #e11305;
 }
 .react-calendar-heatmap .color-coo-4 {
-  fill: #4f4f4f;
+  fill: #0ded1f;
 }
