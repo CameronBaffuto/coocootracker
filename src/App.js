@@ -38,7 +38,7 @@ useEffect(() => {
         handleClose()
       })
       .catch(error => {
-        console.log(error)
+        alert(error)
       })
   }
 
