@@ -95,6 +95,7 @@ useEffect(() => {
                         <option value="1">Morning</option>
                         <option value="2">Night</option>
                         <option value="3">Both</option>
+                        <option value="4">Good</option>
                     </Form.Select>
                 </Form.Group>
                 </Modal.Body>
