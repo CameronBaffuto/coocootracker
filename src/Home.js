@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { auth, db } from "./firebase.js";
-import { set, ref, onValue } from "firebase/database";
+import { set, ref, onValue, remove } from "firebase/database";
 import { uid } from "uid";
 import CalendarHeatmap from 'react-calendar-heatmap';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+import Table from 'react-bootstrap/Table';
 
 
 function Home() {
@@ -16,9 +17,13 @@ const [date, setDate] = useState("");
 const [isUser, setIsUser] = useState(false);
 const [isMobile, setIsMobile] = useState(true);
 const [open, setOpen] = useState(false);
+const [open2, setOpen2] = useState(false);
 
 const handleClose = () => setOpen(false);
 const handleShow = () => setOpen(true);
+
+const handleClose2 = () => setOpen2(false);
+const handleShow2 = () => setOpen2(true);
 
 useEffect(() => {
     auth.onAuthStateChanged(user => {
@@ -48,11 +53,19 @@ useEffect(() => {
             date: date,
             count: count,
             time: new Date().toLocaleTimeString(),
+            uidd: uidd,
         });
         setCount("");
         setDate("");
         setOpen(false);
     }
+
+//delete the database
+const deleteItem = (uid) => {
+    remove(ref(db, `/values/${uid}`));
+    // setShow2(false);
+    
+}
 
     const checkMobile = () => {
         if (window.innerWidth <= 800) {
@@ -76,13 +89,12 @@ useEffect(() => {
         {
             isUser ? (
         <div>
-            <Button variant="primary" onClick={handleShow}>
-                Add New
-            </Button>
+            <Button className="m-3" variant="success" onClick={handleShow}>Add New</Button>
+            <Button className="m-3" variant="warning" onClick={handleShow2}>Edit</Button>
 
             <Modal show={open} onHide={handleClose}>
                 <Modal.Header closeButton>
-                <Modal.Title>Modal heading</Modal.Title>
+                <Modal.Title>Add CooCoo Entry</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                 <Form.Group className="mb-3">
@@ -104,14 +116,43 @@ useEffect(() => {
                 </Modal.Footer>
             </Modal>
 
-            {/* <input type="date" value={date} onChange={(e) => setDate(e.target.value)} />
-            <select value={count} onChange={(e) => setCount(e.target.value)}>
-                <option value="">Select</option>
-                <option value="1">Morning</option>
-                <option value="2">Night</option>
-                <option value="3">Both</option>
-            </select>
-            <button onClick={write}>Write</button> */}
+            <Modal show={open2} onHide={handleClose2}>
+                <Modal.Header closeButton>
+                <Modal.Title>Delete Entry</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                <Table striped bordered hover>
+                    <thead>
+                        <tr>
+                        <th>Date</th>
+                        <th>Code</th>
+                        <th>Time</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {values
+                    .sort((a, b) => b.date.localeCompare(a.date))
+                    .map((value) => {
+                        return (
+                            <tr>
+                                <td>{value.date}</td>
+                                <td>{value.count}</td>
+                                <td>{value.time}</td>
+                                <td>{value.uuid}</td>
+                                {/* <td><Button variant="primary" onClick={() => deleteItem(value.uidd)}>Delete</Button></td> */}
+                                <td><Button variant="danger" onClick={() => deleteItem(value.uidd)}>Delete</Button></td>
+                            </tr>
+                        )
+                    })}
+                    </tbody>
+                </Table>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="primary" onClick={handleClose2}>Close</Button>
+                </Modal.Footer>
+            </Modal>
+
+            
         </div>
         ) : (
         <div>
