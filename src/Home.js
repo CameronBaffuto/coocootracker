@@ -7,6 +7,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Table from 'react-bootstrap/Table';
+import Swal from 'sweetalert2';
 
 
 function Home() {
@@ -14,6 +15,7 @@ function Home() {
 const [values, setValues] = useState([]);
 const [count, setCount] = useState("");
 const [date, setDate] = useState("");
+const [notes, setNotes] = useState("");
 const [isUser, setIsUser] = useState(false);
 const [isMobile, setIsMobile] = useState(true);
 const [open, setOpen] = useState(false);
@@ -52,11 +54,13 @@ useEffect(() => {
         set(ref(db, `/values/${uidd}`),{
             date: date,
             count: count,
+            notes: notes,
             time: new Date().toLocaleTimeString(),
             uidd: uidd,
         });
         setCount("");
         setDate("");
+        setNotes("");
         setOpen(false);
     }
 
@@ -110,6 +114,10 @@ const deleteItem = (uid) => {
                         <option value="4">Good</option>
                     </Form.Select>
                 </Form.Group>
+
+                <Form.Group className="mb-3">
+                    <Form.Control as="textarea" placeholder="Notes" value={notes} onChange={(e) => setNotes(e.target.value)} />
+                </Form.Group>
                 </Modal.Body>
                 <Modal.Footer>
                 <Button variant="primary" onClick={write}>Submit</Button>
@@ -138,8 +146,6 @@ const deleteItem = (uid) => {
                                 <td>{value.date}</td>
                                 <td>{value.count}</td>
                                 <td>{value.time}</td>
-                                <td>{value.uuid}</td>
-                                {/* <td><Button variant="primary" onClick={() => deleteItem(value.uidd)}>Delete</Button></td> */}
                                 <td><Button variant="danger" onClick={() => deleteItem(value.uidd)}>Delete</Button></td>
                             </tr>
                         )
@@ -178,7 +184,15 @@ const deleteItem = (uid) => {
             return `color-coo-${value.count}`;
           }}
 
-          onClick={value => alert(`Code: ${value.count} | Date: ${value.date} | Time ${value.time}`)}
+          onClick={value => Swal.fire({
+        
+                title: 'Date: ' + value.date + '<br>',
+                html:
+                    'Code: ' + value.count + '<br>' +
+                    'Time: ' + value.time +'<br>' +
+                    'Notes: ' + value.notes,
+                showCloseButton: true,
+            })}
 
           tooltipDataAttrs={value => {
             return {
