@@ -135,6 +135,7 @@ const deleteItem = (uid) => {
                         <th>Date</th>
                         <th>Code</th>
                         <th>Time</th>
+                        <th>Notes</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -146,6 +147,7 @@ const deleteItem = (uid) => {
                                 <td>{value.date}</td>
                                 <td>{value.count}</td>
                                 <td>{value.time}</td>
+                                <td>{value.notes}</td>
                                 <td><Button variant="danger" onClick={() => deleteItem(value.uidd)}>Delete</Button></td>
                             </tr>
                         )
