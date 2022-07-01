@@ -88,6 +88,64 @@ const deleteItem = (uid) => {
         };
     });
 
+    const getmorning = values.filter(value => value.count === '1');
+    const morningtime = getmorning.length;
+
+    const getnight = values.filter(value => value.count === '2');
+    const nighttime = getnight.length;
+
+    const getboth = values.filter(value => value.count === '3');
+    const bothtime = getboth.length;
+
+    const getgood = values.filter(value => value.count === '4');
+    const goodtime = getgood.length;
+
+    const snapshot = () => {
+        Swal.fire({
+            title: 'Data since May 29, 2022',
+            html: `<div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body yellowSquare">
+                            <h5 class="card-title">Morning</h5>
+                            <p class="card-text">${morningtime}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body blueSquare">
+                            <h5 class="card-title">Night</h5>
+                            <p class="card-text">${nighttime}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body redSquare">
+                            <h5 class="card-title">Both</h5>
+                            <p class="card-text">${bothtime}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body greenSquare">
+                            <h5 class="card-title">Good</h5>
+                            <p class="card-text">${goodtime}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>`,
+            
+    });
+}
+    
+
   return (
     <div>
         <div className="text-center mt-4 mb-5">
@@ -180,6 +238,8 @@ const deleteItem = (uid) => {
                 <div className="redSquare border">Both</div>
                 <div className="vr" />
                 <div className="greenSquare border">Good</div>
+                <div className="vr" />
+                <Button variant="outline-secondary" onClick={snapshot}>Snapshot</Button>
             </Stack>
         </div>
 
