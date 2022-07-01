@@ -228,7 +228,7 @@ const deleteItem = (uid) => {
         )}
         </div>
 
-        <div className="key">
+        <div className="container key">
             <h5>Key:</h5>
             <Stack direction="horizontal" gap={3}>
                 <div className="yellowSquare border">Morning</div>
@@ -238,9 +238,8 @@ const deleteItem = (uid) => {
                 <div className="redSquare border">Both</div>
                 <div className="vr" />
                 <div className="greenSquare border">Good</div>
-                <div className="vr" />
-                <Button variant="outline-secondary" onClick={snapshot}>Snapshot</Button>
             </Stack>
+            <Button variant="outline-secondary mt-3" size="sm" onClick={snapshot}>Snapshot</Button>    
         </div>
 
         <div className="c">
