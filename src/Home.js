@@ -7,6 +7,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Table from 'react-bootstrap/Table';
+import Stack from 'react-bootstrap/Stack'
 import Swal from 'sweetalert2';
 
 
@@ -167,6 +168,19 @@ const deleteItem = (uid) => {
             <p>Not logged in</p>
         </div>
         )}
+        </div>
+
+        <div className="key">
+            <h5>Key:</h5>
+            <Stack direction="horizontal" gap={3}>
+                <div className="yellowSquare border">Morning</div>
+                <div className="vr" />
+                <div className="blueSquare border">Night</div>
+                <div className="vr" />
+                <div className="redSquare border">Both</div>
+                <div className="vr" />
+                <div className="greenSquare border">Good</div>
+            </Stack>
         </div>
 
         <div className="c">

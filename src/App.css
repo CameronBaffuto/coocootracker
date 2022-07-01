@@ -16,6 +16,34 @@
  
 }
 
+.key {
+  width: 80vw;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.yellowSquare {
+  background: #FFF44F;
+  padding: 0.4%;
+}
+
+.blueSquare {
+  background: #3581D8;
+  color: #fff;
+  padding: 0.4%;
+}
+
+.redSquare {
+  background: #D82E3F;
+  color: #fff;
+  padding: 0.4%;
+}
+
+.greenSquare {
+  background: #28CC2D;
+  padding: 0.4%;
+}
+
 .react-calendar-heatmap text {
   font-size: 10px;
   fill: #aaa;
@@ -90,14 +118,14 @@
   fill: #ededed;
 }
 .react-calendar-heatmap .color-coo-1 {
-  fill: #eeec68;
+  fill: #FFF44F;
 }
 .react-calendar-heatmap .color-coo-2 {
-  fill: #40a1e6;
+  fill: #3581D8;
 }
 .react-calendar-heatmap .color-coo-3 {
-  fill: #e11305;
+  fill: #D82E3F;
 }
 .react-calendar-heatmap .color-coo-4 {
-  fill: #0ded1f;
+  fill: #28CC2D;
 }
